@@ -30,4 +30,20 @@ public class ExamController {
     public List<Exam> getExamByAula(@RequestParam(required = true) String location){
         return examRepository.findByLocation(location);
     }
+
+    @PostMapping("")
+    public Exam createExam(@RequestBody Exam exam){
+        return examRepository.save(exam);
+    }
+
+    @PostMapping("/{id}")
+    public Exam updateExam(@PathVariable Long id, @RequestBody Exam exam){
+        Exam existingExam = examRepository.findById(id).orElse(null);
+        if(existingExam != null){
+            existingExam.setLocation(exam.getLocation());
+            existingExam.setData(exam.getData());
+            return examRepository.save(existingExam);
+        }
+        return null;
+    }
 }
