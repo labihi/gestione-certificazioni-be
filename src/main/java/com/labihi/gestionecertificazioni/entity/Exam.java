@@ -21,6 +21,9 @@ public class Exam {
     @JoinColumn(name = "certification_id", nullable = false)
     private Certification certification;
 
+    @ManyToMany(mappedBy = "exams")
+    private List<Student> students;
+
     @Column(nullable = false)
     private String location;
 
